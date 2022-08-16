@@ -51,7 +51,7 @@ The goal here is to have a JSON file with all the tags and while Microsoft alrea
 
 Use the following KQL code to create the table where we will store the service tag data:
 
-``` kusto
+```Kusto
 .create table ['MyServiceTags']  
 (
   ['ServiceTagName']:string
