@@ -1,0 +1,20 @@
+// first we create a table with a set of IP adresses we want to check against the service tag data
+// We're using a let statement that returns a table called "MyIps" with the IPs in it. 
+let MyIps = datatable(ip:string)
+[
+    '13.71.175.81',
+    '2.20.183.12', 
+    '5.8.1.2',     
+    '192.165.12.17',
+];
+MyIps
+| evaluate ipv4_lookup
+                (
+                     // First parameter is the lookup table. Here we're calling the helper function
+                     GetLatestServiceTags()    
+                    // next we tell it what column to use in the sample table. Here it's called "ip"
+                    ,ip                     
+                    // finally we tell it the column to compare it to. Here it is the "ServiceTagIpRange"
+                    ,ServiceTagIpRange      
+                )   
+

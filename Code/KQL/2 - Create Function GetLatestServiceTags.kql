@@ -1,0 +1,19 @@
+.create-or-alter function with (folder = "Helper Functions", docstring = "Get latest service tags", skipvalidation = "true") GetLatestServiceTags() {
+        // First we get the latest CloudChangeNumber so we get the latest set of service tags and corresponding addressPrefixes
+        // Note I am using the Arg_max function on the change number and returning that number. I have to use toscalar() in order
+        // to use this as a variable for my where clause below.
+    let MaxCloudChangeNumber = 
+    toscalar(MyServiceTags | summarize arg_max(CloudChangeNumber, CloudChangeNumber));
+    MyServiceTags
+    | where CloudChangeNumber == MaxCloudChangeNumber
+        // The address prefixes are stored in an array so we have to expand that array using the Mv-expand command.
+        // note I am using aliasing the resulting column "ServiceTagAddressPrefix" (singular) to denote that we are 
+        // expecting on prefix per row after the expand operation
+    | mv-expand ServiceTagAddressPrefix = ServiceTagAddressPrefixes
+        // we're keeping only these two columns to keep things simple
+    | project 
+         ServiceTagName
+            //Next we are explicitly casting the IP prefix (or range) as a string because the MV-expand makes no assumptions and keeps it as a Dynamic data type which is not what we want for the next step
+        ,ServiceTagIpRange = tostring(ServiceTagAddressPrefix)
+        ,CloudChangeNumber
+    } 

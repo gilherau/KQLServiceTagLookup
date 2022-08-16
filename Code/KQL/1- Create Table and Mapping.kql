@@ -1,0 +1,8 @@
+
+// 1- Run this first
+// Create table command
+.create table ['MyServiceTags']  (['ServiceTagName']:string, ['ServiceTagId']:string, ['ServiceTagRegion']:string, ['ServiceTagAddressPrefixes']:dynamic, ['ServiceTagSystemService']:string, ['ServiceTagChangeNumber']:string, ['CloudType']:string, ['CloudChangeNumber']:int)
+
+// 2- Then run this
+// Create mapping command
+.create table ['MyServiceTags'] ingestion json mapping 'MyServiceTags_mapping' '[{"column":"ServiceTagName", "Properties":{"Path":"$[\'Name\']"}},{"column":"ServiceTagId", "Properties":{"Path":"$[\'Id\']"}},{"column":"ServiceTagRegion", "Properties":{"Path":"$[\'Properties\'][\'Region\']"}},{"column":"ServiceTagAddressPrefixes", "Properties":{"Path":"$[\'Properties\'][\'AddressPrefixes\']"}},{"column":"ServiceTagSystemService", "Properties":{"Path":"$[\'Properties\'][\'SystemService\']"}},{"column":"ServiceTagChangeNumber", "Properties":{"Path":"$[\'Properties\'][\'ChangeNumber\']"}},{"column":"CloudType", "Properties":{"Path":"$[\'CloudType\']"}},{"column":"CloudChangeNumber", "Properties":{"Path":"$[\'CloudChangeNumber\']"}}]'
