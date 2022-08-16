@@ -47,11 +47,11 @@ The goal here is to have a JSON file with all the tags and while Microsoft alrea
 - If you have not done so already, go get your [free ADX cluster](https://aka.ms/adx.free) and let’s get started.
 - Create a blank new Database or use an existing one
 
-### Creating a table
+### Creating a table and the associated data mapping
 
 Use the following KQL code to create the table where we will store the service tag data:
 
-```Kusto
+```kql
 .create table ['MyServiceTags']  
 (
   ['ServiceTagName']:string
@@ -65,6 +65,21 @@ Use the following KQL code to create the table where we will store the service t
 )
 ``` 
 
+Now use the following code to create the data mapping
+
+```kql
+.create table ['MyServiceTags'] ingestion json mapping 'MyServiceTags_mapping' 
+'[
+  {"column":"ServiceTagName",Properties":{"Path":"$[\'Name\']"}}
+ ,{"column":"ServiceTagId",Properties":{"Path":"$[\'Id\']"}}
+ ,{"column":"ServiceTagRegion","Properties":{"Path":"$[\'Properties\'][\'Region\']"}}
+ ,{"column":"ServiceTagAddressPrefixes","Properties":{"Path":"$[\'Properties\'][\'AddressPrefixes\']"}}
+ ,{"column":"ServiceTagSystemService","Properties":{"Path":"$[\'Properties\'][\'SystemService\']"}}
+ ,{"column":"ServiceTagChangeNumber", "Properties":{"Path":"$[\'Properties\'][\'ChangeNumber\']"}}
+ ,{"column":"CloudType", "Properties":{"Path":"$[\'CloudType\']"}}
+ ,{"column":"CloudChangeNumber", "Properties":{"Path":"$[\'CloudChangeNumber\']"}}
+]'
+``` 
 
 
 
