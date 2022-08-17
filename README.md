@@ -38,8 +38,6 @@ The goal here is to have a JSON file with all the tags and while Microsoft alrea
 
 ## Putting it all together using ADX
 
-## Getting our ADX environment ready
-
 **Requirements:** 
 
 - The powershell script uses packages that are pretty standard for PowerShell but if you do not have them already, you will need sufficient permissions to add packages.
