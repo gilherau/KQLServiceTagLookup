@@ -1,0 +1,18 @@
+// Let's get a quick datatable with our servicetags of interest in it
+let MyServiceTagSample = datatable(ServiceTagName:string)
+[
+'ServiceTagName',
+'DataFactoryManagement',
+'DataFactory.CanadaCentral',
+'DataFactory',
+'AzureCloud.canadacentral',
+'AzureCloud'
+];
+// use an inner join to get the ranges associated with the service tags of interest
+GetLatestServiceTags
+| join kind=inner MyServiceTagSample on ServiceTagName
+// casting a flag to determine is it's an IP V4 or IP V6 so we don't skew the count
+| extend isIpv4 = case(indexof(ServiceTagIpRange,":") > 0, 0, 1)
+| summarize StCount = count() by ServiceTagName, isIpv4
+// Ordering by count and by service tags
+| order by StCount, ServiceTagName
