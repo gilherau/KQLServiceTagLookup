@@ -34,7 +34,7 @@ If you want to do this manually, you can also download a JSON file with all the 
 
 For this post, you can skip right to downloading the JSON here but if you are interested, check out this Git Repo where I have a [PowerShell script](/Code/Powershell/GetServiceTags.ps1) that generates an ADX friendly version that you can ingest once in a while to keep this up to day..
 
-The goal here is to have a JSON file with all the tags and while Microsoft already provides a direct link to a Downloadable JSON file, it’s not really great for ingestion into ADX so I had to tweak it a bit. This is what the PowerShell does. Please take a peek if you are curious of just [download the file in the repo](/Code/Sample%20Data/Public_101.json). Note that I have included two version of the file. They were generated using the script about two weeks apart. You can ingest the 101 version followed by the 102 version in the ingestion steps below. This will demo how we can use ADX go always get the latest.
+The goal here is to have a JSON file with all the tags and while Microsoft already provides a direct link to a Downloadable JSON file, it’s not really great for ingestion into ADX so I had to tweak it a bit. This is what the PowerShell does. Please take a peek if you are curious or just [download the file in the repo](/Code/Sample%20Data/Public_101.json). Note that I have included two version of the file. They were generated using the script about two weeks apart. You can ingest the 101 version followed by the 102 version in the ingestion steps below. This will demo how we can use ADX go always get the latest.
 
 ## Putting it all together using ADX
 
